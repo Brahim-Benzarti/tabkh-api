@@ -1,0 +1,1 @@
+<img src="{{asset('svg/logo.svg')}}" alt="Tabkh Logo" style="width:317px;height:48px;">
