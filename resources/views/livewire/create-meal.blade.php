@@ -33,7 +33,8 @@
             <x-jet-label for="picture" value="{{ __('Picture') }}" />
             <div class="mt-2" x-show="photoPreview">
                 <span class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
-                      x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
+                      x-bind:style="'background-image: url(\'' + photoPreview + '\');'"
+                      >
                 </span>
             </div>
 
@@ -61,23 +62,32 @@
         {{-- ingredients --}}
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="ingredients" value="{{ __('Ingredients') }}" />
-                @for ($i = 0; $i < $ingno; $i++)
-                    <x-jet-input type="text" step="1" class="mt-1 block w-full" wire:model.lazy="filledingredients" autocomplete="time" />
-                @endfor
-                <select id="ingredients" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+
+            @foreach ($beautyfilledingredients as $selecteding)
+                <div class="float mt-1">
+                    <x-jet-input disabled type="text" step="1" style="max-width:33%" value="{{$selecteding['name']}}"/>
+                    <x-jet-input disabled type="text" step="1" style="max-width:33%" value="{{$selecteding['quantity']}}"/>
+                    <x-jet-danger-button type="button" wire:click="removeIng({{$selecteding['id']}})">Remove</x-jet-danger-button>
+                </div>
+            @endforeach
+
+            <div class="float mt-1">
+                <select wire:model.lazy="newingid" id="ingredients" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                    <option value="null" selected></option>
                     @foreach ($ingredients as $item)
-                        <option value="{{$item["id"]}}">{{$item['name']}}</option>
+                        <option  value="{{$item['_id']}}">{{$item['name']}}</option>
                     @endforeach
                 </select>
-                <button type="button" wire:click="incr">add</button>
-                
-            <x-jet-input-error for="ingredients" class="mt-2" />
-        </div>
-        @foreach ($filledingredients as $item)
-        {{$item}}
-        @endforeach
-        
+    
+                <x-jet-input type="text" step="1" class="w-30" wire:model.lazy="newingqt" />
 
+                <x-jet-button type="button" wire:click="addIng">Add</x-jet-button>
+            </div>
+            <x-jet-input-error for="newingid" class="mt-2" />
+            <x-jet-input-error for="newingqt" class="mt-2" />
+            <x-jet-input-error for="filledingredients" class="mt-2" />
+        </div>
+        
 
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="steps" value="{{ __('Steps') }}" />

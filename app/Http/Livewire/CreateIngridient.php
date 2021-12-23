@@ -60,6 +60,14 @@ class CreateIngridient extends Component
         $ingredient->total_calories=$this->calcCalories();
         $ingredient->save();
         $this->emit('saved');
+        $this->name=null;
+        $this->picture=null;
+        $this->price=null;
+        $this->fat=null;
+        $this->protein=null;
+        $this->carbohydrates=null;
+        $this->hm=0;
+        $this->description=null;
     }
 
     public function calcCalories(){
