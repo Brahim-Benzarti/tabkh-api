@@ -1,3 +1,15 @@
+@php
+// fetching all the tokens
+$tokens=new ArrayObject();
+foreach (Auth::user()->tokens as $tok) {
+    foreach ($tok['abilities'] as $key) {
+        $tokens->append($key);
+    }
+}
+$tokens=$tokens->getArrayCopy();
+@endphp
+
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,13 +22,40 @@
                     </a>
                 </div>
 
+
+
+
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
                 </div>
+
+                @if(in_array('create',$tokens))
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('create-recipe-index') }}" :active="request()->routeIs('create-recipe-index')">
+                        {{ __('Create Recipe') }}
+                    </x-jet-nav-link>
+                </div>
+                @endif
+
+                @if(in_array('ingridient:create',$tokens))
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('add-ingredient-index') }}" :active="request()->routeIs('add-ingredient-index')">
+                        {{ __('Add Ingredient') }}
+                    </x-jet-nav-link>
+                </div>
+                @endif
+
             </div>
+
+
+
+
+
+
+
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
@@ -135,6 +174,12 @@
         </div>
     </div>
 
+
+
+
+
+
+
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
@@ -142,6 +187,26 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
         </div>
+        @if(in_array('create',$tokens))
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('create-recipe-index') }}" :active="request()->routeIs('create-recipe-index')">
+                {{ __('Create Recipe') }}
+            </x-jet-responsive-nav-link>
+        </div>
+        @endif
+        @if(in_array('ingridient:create',$tokens))
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('add-ingredient-index') }}" :active="request()->routeIs('add-ingredient-index')">
+                {{ __('Add Ingredient') }}
+            </x-jet-responsive-nav-link>
+        </div>
+        @endif
+
+
+
+
+
+
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">

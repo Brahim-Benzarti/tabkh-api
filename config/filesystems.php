@@ -53,6 +53,20 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'ingredients' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL').'/ingredients',
+            'visibility' => 'public',
+        ],
+        
+        'meals' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL').'/meals',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

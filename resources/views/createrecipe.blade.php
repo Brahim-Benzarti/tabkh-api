@@ -7,12 +7,9 @@
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+            @livewire('create-meal')
 
-                {{-- @livewire('create-meal')
-
-                <x-jet-section-border /> --}}
-
-            Hello world!
+            <x-jet-section-border />
         </div>
     </div>
 </x-app-layout>
