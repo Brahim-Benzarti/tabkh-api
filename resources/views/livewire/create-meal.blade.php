@@ -16,6 +16,13 @@
             <x-jet-input-error for="name" class="mt-2" />
         </div>
 
+        {{-- local name --}}
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="lname" value="{{ __('Recipe local name') }}" />
+            <x-jet-input id="lname" type="text" class="mt-1 block w-full" wire:model.lazy="lname" autocomplete="lname" />
+            <x-jet-input-error for="lname" class="mt-2" />
+        </div>
+
 
         {{-- picture --}}
         <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
@@ -72,7 +79,7 @@
             @endforeach
 
             <div class="float mt-1">
-                <select wire:model.lazy="newingid" id="ingredients" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                <select wire:model.lazy="newingid" id="ingredients" style="height: 42px" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
                     <option value="null" selected></option>
                     @foreach ($ingredients as $item)
                         <option  value="{{$item['_id']}}">{{$item['name']}}</option>
@@ -94,6 +101,14 @@
             <textarea id="steps" type="text" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full h-30" wire:model.lazy="steps" autocomplete="steps"></textarea>
             <x-jet-input-error for="steps" class="mt-2" />
         </div>
+
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="lsteps" value="{{ __('Local language steps') }}" />
+            <textarea id="lsteps" type="text" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full h-30" wire:model.lazy="lsteps" autocomplete="lsteps"></textarea>
+            <x-jet-input-error for="lsteps" class="mt-2" />
+        </div>
+
 
     </x-slot>
 

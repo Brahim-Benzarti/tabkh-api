@@ -4,20 +4,25 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Meal;
+use App\Models\Ingredient;
 use Auth;
 use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 
 class CreateMeal extends Component
 {
     use WithFileUploads;
     public $name;
+    public $lname;
     public $picture;
     public $time;
     public $ingredients= [];
     public $filledingredients = [];
+    public $filledingredientsraw = [];
     public $ingno= 0;
     public $steps;
+    public $lsteps;
     public $cost;
     public $ready;
     public $tutorials;
@@ -29,7 +34,7 @@ class CreateMeal extends Component
 
     public function render()
     {
-        $this->ingredients= app("App\Http\Controllers\IngredientController")->listIngredients()->getOriginalContent();
+        $this->ingredients= app("App\Http\Controllers\IngredientController")->listIngredients(new Request())->getOriginalContent();
         // dd(app("App\Http\Controllers\IngredientController")->listIngredients()->getOriginalContent());
         return view('livewire.create-meal');
     }
@@ -48,61 +53,64 @@ class CreateMeal extends Component
     }
 
     public function addMeal(){
-        // $headers=["Content-Type"=>"application/json"];
         $this->validate($this->rules);
-        try {
-            $meal = new Meal();
-            $meal->creatorId=Auth::user()->id;
-            $meal->name=$this->name;
-            $meal->picture=$this->picture;
-            if($this->time){
-                $meal->time=$this->time;
-            }
-            $meal->ingredients=$this->filledingredients;
-            $meal->steps=$this->steps;
-            if($this->cost){
-                $meal->cost=$this->cost;
-            }
-            if($this->ready){
-                $meal->ready=$this->ready;
-            }
-            if($this->tutorials){
-                $meal->tutorials=$this->tutorials;
-            }
-            if($this->backstory){
-                $meal->backstory=$this->backstory;
-            }
-            $meal->save();
-            $this->emit('saved');
-            // cleaning after insert
-            $this->name=null;
-            $this->picture=null;
-            $this->time=null;
-            $this->filledingredients = [];
-            $this->ingno= 0;
-            $this->steps=null;
-            $this->cost=null;
-            $this->ready=null;
-            $this->tutorials=null;
-            $this->backstory=null;
-            $this->newingid=null;
-            $this->newingqt=null;
-            $this->beautyfilledingredients=[];
-            // return response()->json(["message"=>"Meal added successfully"], 200, $headers);
-        } catch (\Throwable $th) {
-            // 406 not acceptable
-            // return response()->json(["message"=>$th], 406, $headers);
-            $this->emit('error');
+
+        $meal = new Meal();
+        $meal->creatorId=Auth::user()->id;
+        $meal->name=$this->name;
+        $meal->lname=$this->lname;
+        $picname=$this->picture->getFilename();
+        file_put_contents(public_path('meals\\').$picname,file_get_contents($this->picture->getRealPath()));
+        $meal->picture=public_path('meals\\').$picname;
+        if($this->time){
+            $meal->time=$this->time;
         }
+        $meal->ingredients=$this->filledingredients;
+        $meal->ingredients_raw=$this->filledingredientsraw;
+        $meal->steps=$this->steps;
+        $meal->lsteps=$this->lsteps;
+        if($this->cost){
+            $meal->cost=(int)$this->cost;
+        }
+        if($this->ready){
+            $meal->ready=$this->ready;
+        }
+        if($this->tutorials){
+            $meal->tutorials=$this->tutorials;
+        }
+        if($this->backstory){
+            $meal->backstory=$this->backstory;
+        }
+        $meal->total_calories=0;
+        foreach ($this->filledingredientsraw as $value) {
+            // dd($value);
+            $meal->total_calories+=((int)$value["ingredient"]["total_calories"]/100)*(int)$value["quantity"];
+        }
+        $meal->save();
+        $this->emit('saved');
+        // cleaning after insert
+        // $this->name=null;
+        // $this->picture=null;
+        // $this->time=null;
+        // $this->filledingredients = [];
+        // $this->ingno= 0;
+        // $this->steps=null;
+        // $this->cost=null;
+        // $this->newingid=null;
+        // $this->newingqt=null;
+        // $this->beautyfilledingredients=[];
     }
 
     public function addIng(){
         // dd($this->ingredients);
         $this->validate([
             "newingid"=>["required","exists:App\Models\Ingredient,_id"],
-            "newingqt"=>["required"]
+            "newingqt"=>["required","numeric","max:10000"]
         ]);
-        $this->filledingredients[$this->ingno] = ["id"=>$this->newingid, "quantity"=>$this->newingqt];
+        // dd(Ingredient::where('_id',$this->newingid)->select("name","unit")->get()[0]->name);
+        $this->filledingredientsraw[$this->ingno] = ["ingredient"=>Ingredient::find($this->newingid), "quantity"=>$this->newingqt];
+        $ing=Ingredient::where('_id',$this->newingid)->select("name","unit")->get()[0];
+        $this->filledingredients[$this->ingno] = ["ingredient"=>$ing->name, "quantity"=>$this->newingqt." ".$ing->unit];
         $inginstance=$this->ingredients->find($this->newingid);
         $this->beautyfilledingredients[$this->ingno] = ["id"=>$this->ingno, "name"=>$inginstance->name, "quantity"=>$this->newingqt, "unit"=>"gram(s)"];
         $this->newingid="null";
@@ -130,6 +138,7 @@ class CreateMeal extends Component
         // $this->filledingredients=$temp;
         // $this->beautyfilledingredients=$temp2;
         unset($this->filledingredients[$ingnotrm]);
+        unset($this->filledingredientsraw[$ingnotrm]);
         unset($this->beautyfilledingredients[$ingnotrm]);
     }
 }

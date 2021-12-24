@@ -8,16 +8,59 @@ use App\Models\Ingredient;
 
 class IngredientController extends Controller
 {
+    private $headers=["Content-Type"=>"application/json"];
+
+    // web
     function ingredientIndex(){
         return view("addingredient");
     }
 
-    function listIngredients(){
-        $headers=["Content-Type"=>"application/json"];
+
+    // api
+    function listIngredientsRaw(){
         $data=Ingredient::all();
-        return response()->json($data, 200, $headers);
+        return response()->json($data, 200, $this->headers);
     }
-    function findIngredients(){
-        return 1;
+
+    function listIngredients(Request $request){
+        $fields=["name","price","unit","description"];
+        if($request->query->get('pictures')){
+            array_splice($fields,1,0,"picture");
+        }
+
+        if($request->query->get('nutrition')){
+            array_push($fields,"fat","protein","carbohydrates");
+        }
+
+        if($request->query->get('calories')){
+            array_push($fields,"total_calories");
+        }
+        $data=Ingredient::all($fields);
+        return response()->json($data, 200, $this->headers);
+    }
+
+    function findIngredients(Request $request,$name){
+        $fields=["name","price","unit","description"];
+        if($request->query->get('pictures')){
+            array_splice($fields,1,0,"picture");
+        }
+
+        if($request->query->get('nutrition')){
+            array_push($fields,"fat","protein","carbohydrates");
+        }
+
+        if($request->query->get('calories')){
+            array_push($fields,"total_calories");
+        }
+        if(count(Ingredient::where("name",$name)->get())){
+            return response()->json(Ingredient::select($fields)->where('name',$name)->get(), 200, $this->headers);
+        }
+
+        $res=[];
+        foreach (Ingredient::all("name") as $value) {
+            similar_text($value["name"],$name,$percent);
+            if($percent>75){array_push($res,$value["name"]);}
+        }
+        return response()->json(["Message"=>"Nothing found!","Similar"=>$res], 200, $this->headers);
     }
 }
