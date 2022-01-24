@@ -80,6 +80,76 @@ class MealController extends Controller
     }
 
 
+    public function addMeal(Request $request){
+        $this->validate($request, [
+            "name"=>["required","max:20","string"],
+            "picture"=>["required","mimes:png,jpg,gifjpeg","max:5000"],
+            "filledingredients"=>["required"],
+            // "cost"=>["sometimes","numeric"],
+            "steps"=>["required","string","min:10"],
+            // "backstory"=>["sometimes","string","max:500"]
+        ]);
+
+        $meal = new Meal();
+        $meal->creatorId=Auth::user()->id;
+        $meal->name=$request->name;
+        $meal->lname=$request->lname;
+        if($request->category){
+            if($request->category=="null" && $request->newcategory){
+                $meal->category=$request->newcategory;
+            }else{
+                $meal->category=$request->category;
+            }
+        }
+        if($request->country){
+            if($request->country=="null" && $request->newcountry && $request->newcountrycode){
+                $meal->country=$request->newcountry;
+                $meal->countrycode=$request->newcountrycode;
+            }else{
+                $meal->countrycode=$request->country;
+            }
+        }
+        $picname=$request->picture->getFilename();
+        file_put_contents(public_path('meals\\').$picname,file_get_contents($request->picture->getRealPath()));
+        $meal->picture=public_path('meals\\').$picname;
+        if($request->time){
+            $meal->time=$request->time;
+        }
+        $meal->ingredients=$request->filledingredients;
+        $meal->ingredients_raw=$request->filledingredientsraw;
+        $meal->steps=$request->steps;
+        $meal->lsteps=$request->lsteps;
+        if($request->cost){
+            $meal->cost=(int)$request->cost;
+        }
+        if($request->ready){
+            $meal->ready=$request->ready;
+        }
+        if($request->tutorials){
+            $meal->tutorials=$request->tutorials;
+        }
+        if($request->backstory){
+            $meal->backstory=$request->backstory;
+        }
+        $meal->total_calories=0;
+        foreach ($request->filledingredientsraw as $value) {
+            $tempunit=Unit::where("abbreviation",$value["ingredient"]["unit"])->get()[0]->equivalents;
+            $meal->total_calories+=(($value["ingredient"]["total_calories"]/100)/$tempunit[$value["unit"]])*$value["quantity"];
+        }
+        $meal->save();
+
+        return response()->json(["message"=>"Recipe created successfully."], 200);
+    }
+
+    public function deleteMeal(Request $request){
+        
+    }
+
+    public function updateMeal(){
+        
+    }
+
+
     public function testing(){
         return response()->json(["message"=>"okay"], 200, $this->headers);
     }
