@@ -57,6 +57,8 @@
             <x-jet-input-error for="picture" class="mt-2" />
         </div>
 
+
+        {{-- Unit --}}
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="unit" value="{{ __('Unit of measurement') }}" />
             <select id="unit" wire:model.lazy="unit" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
@@ -68,6 +70,8 @@
             </select>
         </div>
 
+
+        {{-- Price --}}
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="price" value="{{ __('Price (100 unit)') }}" />
             <x-jet-input id="price" type="text" class="mt-1 block w-full" wire:model.lazy="price" autocomplete="price" />

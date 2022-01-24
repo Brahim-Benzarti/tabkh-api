@@ -40,7 +40,7 @@ $tokens=$tokens->getArrayCopy();
                 </div>
                 @endif
 
-                @if(in_array('ingridient:create',$tokens))
+                @if(in_array('create',$tokens))
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('add-ingredient-index') }}" :active="request()->routeIs('add-ingredient-index')">
                         {{ __('Add Ingredient') }}
@@ -194,7 +194,7 @@ $tokens=$tokens->getArrayCopy();
             </x-jet-responsive-nav-link>
         </div>
         @endif
-        @if(in_array('ingridient:create',$tokens))
+        @if(in_array('create',$tokens))
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('add-ingredient-index') }}" :active="request()->routeIs('add-ingredient-index')">
                 {{ __('Add Ingredient') }}
