@@ -217,9 +217,9 @@ class MealController extends Controller
                             $meal[$key]=$value;
                             $meal->save();
                         }
-
+                    }else{
+                        return response()->json(["message"=>"One and only one parameter is allowed, yet you entered ".count($request->query)."."], 403);
                     }
-                    return response()->json(["message"=>"One and only one parameter is allowed, yet you entered ".count($request->query)."."], 403);
                 }
                 return response()->json(["message"=>"Recipe Updated."], 201);
             }return response()->json(["message"=>"Your're not the owner."], 403);
