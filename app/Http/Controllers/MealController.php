@@ -86,12 +86,13 @@ class MealController extends Controller
             "lname"=>["sometimes","max:20","string"],
             "category"=>["sometimes","string","max:100"],
             "time"=>["required","numeric","min:1","max:300"],
-
-            // "picture"=>["required","mimes:png,jpg,gifjpeg","max:5000"],
+            "picture"=>["sometimes","mimes:png,jpg,gif,jpeg","max:5000"],
+            "picture_url"=>["sometimes","active_url"],
             "filledingredients"=>["required"],
-            // "cost"=>["sometimes","numeric"],
+            "cost"=>["sometimes","numeric"],
             "steps"=>["required","string","min:10"],
-            // "backstory"=>["sometimes","string","max:500"]
+            "lsteps"=>["required","string","min:10"],
+            "backstory"=>["sometimes","string","max:500"]
         ]);
 
         $meal = new Meal();

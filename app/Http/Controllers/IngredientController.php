@@ -64,8 +64,49 @@ class IngredientController extends Controller
         return response()->json(["Message"=>"Nothing found!","Similar"=>$res], 200, $this->headers);
     }
 
-    public function addIngredient(Request $request){
-
+    public function addIngredient(){
+        $this->validate($request,[
+            "name"=>'required|max:20|string',
+            "picture"=>"sometimes|mimes:png,jpg,gif,jpeg|max:5000",
+            "picture"=>"sometimes|active_url",
+            "price"=>'required|numeric',
+            "fat"=>"required|numeric",
+            "protein"=>"required|numeric",
+            "carbohydrates"=>"required|numeric",
+            "hm"=>"required",
+            "description"=>"required|string|max:5000",
+            "unit"=>"required|exists:App\Models\Unit,abbreviation"
+        ]);
+        $ingredient = new Ingredient();
+        $ingredient->creatorId=Auth::user()->id;
+        $ingredient->name=$request->name;
+        $ingredient->lname=$request->lname;
+        $ingredient->unit=$request->unit;
+        if($request->picture_url){
+            $ingredient->picture=$request->url;
+        }elseif($request->picture){
+            // dd($request->picture);
+            $picname=$request->picture->getFilename();
+            // dd($request->picture);
+            // dd(public_path("ok/"));
+            file_put_contents(public_path('ingredients\\').$picname,file_get_contents($request->picture->getRealPath()));
+            // Storage::disk('ingredients')->put($picname, file_get_contents($request->picture->getRealPath()));
+            $ingredient->picture=public_path('ingredients\\').$picname;
+        }
+        $ingredient->price=(double)$request->price;
+        $ingredient->fat=(double)$request->fat;
+        $ingredient->protein=(double)$request->protein;
+        $ingredient->carbohydrates=(double)$request->carbohydrates;
+        $ingredient->home_made=$request->hm;
+        $ingredient->description=$request->description;
+        if($request->facts){
+            $ingredient->facts=$request->facts;
+        }
+        if($request->uses){
+            $ingredient->uses=$request->uses;
+        }
+        $ingredient->total_calories=$request->calcCalories();
+        $ingredient->save();
     }
 
     public function deleteIngredient($id){
