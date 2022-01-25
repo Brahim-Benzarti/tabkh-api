@@ -79,7 +79,61 @@ class IngredientController extends Controller
         return response()->json(["message"=>"No such Ingredient."], 200);
     }
 
-    public function updateIngredient($id){
-        
+
+    public function updateIngredient(Request $request, $id){
+        $ingredient=Ingredient::find($id);
+        if($ingredient){
+            if($ingredient->creatorId==Auth::id()){
+                if($request->method()=="PUT"){
+                    foreach ($request->query as $key => $value) {
+                        if(!$ingredient[$key]){
+                            return response()->json(["message"=>"Some or all params don't exist."], 403);
+                        }
+                    }
+                    foreach ($request->query as $key => $value) {
+                        $this->validate($request, [
+                            "name"=>'sometimes|max:20|string',
+                            // "picture"=>"sometimes|mimes:png,jpg,gif,jpeg|max:5000",
+                            "price"=>'sometimes|numeric',
+                            "fat"=>"sometimes|numeric",
+                            "protein"=>"sometimes|numeric",
+                            "carbohydrates"=>"sometimes|numeric",
+                            "hm"=>"sometimes",
+                            "description"=>"sometimes|string|max:5000",
+                            "unit"=>"sometimes|exists:App\Models\Unit,abbreviation"
+                        ]);
+                        $ingredient[$key]=$value;
+                        $ingredient->save();
+                    }
+                }else{
+                    foreach ($request->query as $key => $value) {
+                        if(!$ingredient[$key]){
+                            return response()->json(["message"=>"The specified parameter (".$key.") don't exist."], 403);
+                        }
+                    }
+                    if(count($request->query)==1){
+                        foreach ($request->query as $key => $value) {
+                            $this->validate($request, [
+                                "name"=>'sometimes|max:20|string',
+                                // "picture"=>"sometimes|mimes:png,jpg,gif,jpeg|max:5000",
+                                "price"=>'sometimes|numeric',
+                                "fat"=>"sometimes|numeric",
+                                "protein"=>"sometimes|numeric",
+                                "carbohydrates"=>"sometimes|numeric",
+                                "hm"=>"sometimes",
+                                "description"=>"sometimes|string|max:5000",
+                                "unit"=>"sometimes|exists:App\Models\Unit,abbreviation"
+                            ]);
+                            $ingredient[$key]=$value;
+                            $ingredient->save();
+                        }
+
+                    }
+                    return response()->json(["message"=>"One and only one parameter is allowed, yet you entered ".count($request->query)."."], 403);
+                }
+                return response()->json(["message"=>"Ingredient Updated."], 201);
+            }return response()->json(["message"=>"Your're not the owner."], 403);
+        }
+        return response()->json(["message"=>"No such ingredient."], 404);
     }
 }

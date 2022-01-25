@@ -35,9 +35,9 @@ Route::middleware(['auth:sanctum','ability:delete'])->group(function(){
 });
 
 Route::middleware(['auth:sanctum','ability:update'])->group(function(){
-    Route::post('/update_recipe/{id}', [MealController::class, 'updateMeal'])->name('update-meal');
-    Route::post('/update_ingredient/{id}', [IngredientController::class, 'updateIngredient'])->name('update-meal');
-    Route::post('/update_unit/{id}', [UnitController::class, 'updateUnit'])->name('update-unit');
+    Route::match(['put', 'patch'],'/update_recipe/{id}', [MealController::class, 'updateMeal'])->name('update-meal');
+    Route::match(['put', 'patch'],'/update_ingredient/{id}', [IngredientController::class, 'updateIngredient'])->name('update-meal');
+    Route::match(['put', 'patch'],'/update_unit/{id}', [UnitController::class, 'updateUnit'])->name('update-unit');
 });
 
 Route::middleware(['auth:sanctum','ability:test'])->group(function(){

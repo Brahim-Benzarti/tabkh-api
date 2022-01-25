@@ -83,7 +83,7 @@ class MealController extends Controller
     public function addMeal(Request $request){
         $this->validate($request, [
             "name"=>["required","max:20","string"],
-            "picture"=>["required","mimes:png,jpg,gifjpeg","max:5000"],
+            // "picture"=>["required","mimes:png,jpg,gifjpeg","max:5000"],
             "filledingredients"=>["required"],
             // "cost"=>["sometimes","numeric"],
             "steps"=>["required","string","min:10"],
@@ -146,14 +146,62 @@ class MealController extends Controller
         if($meal){
             if($meal->creatorId==Auth::id()){
                 $meal->delete();
-                return response()->json(["message"=>"Recipe deleted."], 200);
-            }return response()->json(["message"=>"Your're not the owner."], 200);
+                return response()->json(["message"=>"Recipe deleted."], 201);//success
+            }return response()->json(["message"=>"Your're not the owner."], 403);//forbidden
         }
-        return response()->json(["message"=>"No such recipe."], 200);
+        return response()->json(["message"=>"No such recipe."], 404);//not found
     }
+    
 
-    public function updateMeal($i){
-        
+    public function updateMeal(Request $request, $id){
+        $meal=Meal::find($id);
+        if($meal){
+            if($meal->creatorId==Auth::id()){
+                if($request->method()=="PUT"){
+                    foreach ($request->query as $key => $value) {
+                        if(!$meal[$key]){
+                            return response()->json(["message"=>"Some or all params don't exist."], 403);
+                        }
+                    }
+                    foreach ($request->query as $key => $value) {
+                        $this->validate($request, [
+                            "name"=>["sometimes","max:20","string"],
+                            // "picture"=>["required","mimes:png,jpg,gifjpeg","max:5000"],
+                            // "filledingredients"=>["sometimes"],
+                            "cost"=>["sometimes","numeric"],
+                            "steps"=>["sometimes","string","min:10"],
+                            "backstory"=>["sometimes","string","max:500"]
+                        ]);
+                        $meal[$key]=$value;
+                        $meal->save();
+                    }
+                }else{
+                    foreach ($request->query as $key => $value) {
+                        if(!$meal[$key]){
+                            return response()->json(["message"=>"The specified parameter (".$key.") don't exist."], 403);
+                        }
+                    }
+                    if(count($request->query)==1){
+                        foreach ($request->query as $key => $value) {
+                            $this->validate($request, [
+                                "name"=>["sometimes","max:20","string"],
+                                // "picture"=>["required","mimes:png,jpg,gifjpeg","max:5000"],
+                                // "filledingredients"=>["sometimes"],
+                                "cost"=>["sometimes","numeric"],
+                                "steps"=>["sometimes","string","min:10"],
+                                "backstory"=>["sometimes","string","max:500"]
+                            ]);
+                            $meal[$key]=$value;
+                            $meal->save();
+                        }
+
+                    }
+                    return response()->json(["message"=>"One and only one parameter is allowed, yet you entered ".count($request->query)."."], 403);
+                }
+                return response()->json(["message"=>"Recipe Updated."], 201);
+            }return response()->json(["message"=>"Your're not the owner."], 403);
+        }
+        return response()->json(["message"=>"No such recipe."], 404);
     }
 
 
