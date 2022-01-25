@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="flex justify-center items-center" style="height:100vh;width:100vw;">
+    <div class="main flex justify-center items-center" style="height:100vh;width:100vw;">
         <img src="{{asset('svg/logo.svg')}}" alt="Logo" style="width:250px;height:250px;">
     </div>
         <style>
