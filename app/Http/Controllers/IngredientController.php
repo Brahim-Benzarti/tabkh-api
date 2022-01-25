@@ -63,4 +63,23 @@ class IngredientController extends Controller
         }
         return response()->json(["Message"=>"Nothing found!","Similar"=>$res], 200, $this->headers);
     }
+
+    public function addIngredient(Request $request){
+
+    }
+
+    public function deleteIngredient($id){
+        $ingredient=Ingredient::find($id);
+        if($ingredient){
+            if($ingredient->creatorId==Auth::id()){
+                $ingredient->delete();
+                return response()->json(["message"=>"Ingredient deleted."], 200);
+            }return response()->json(["message"=>"Your're not the owner."], 200);
+        }
+        return response()->json(["message"=>"No such Ingredient."], 200);
+    }
+
+    public function updateIngredient($id){
+        
+    }
 }

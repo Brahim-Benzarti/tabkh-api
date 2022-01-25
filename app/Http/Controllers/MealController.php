@@ -141,12 +141,18 @@ class MealController extends Controller
         return response()->json(["message"=>"Recipe created successfully."], 200);
     }
 
-    public function deleteMeal(Request $request){
-        $meal=Meal::find($request->query->get('meal_id'));
-        dd($meal);
+    public function deleteMeal($id){
+        $meal=Meal::find($id);
+        if($meal){
+            if($meal->creatorId==Auth::id()){
+                $meal->delete();
+                return response()->json(["message"=>"Recipe deleted."], 200);
+            }return response()->json(["message"=>"Your're not the owner."], 200);
+        }
+        return response()->json(["message"=>"No such recipe."], 200);
     }
 
-    public function updateMeal(){
+    public function updateMeal($i){
         
     }
 
