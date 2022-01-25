@@ -31,7 +31,7 @@ class MealController extends Controller
         }
         if($request->query->get('calories')){
             array_push($data,"total_calories");
-            return response()->json(Meal::where("countrycode",$country)->whereBetween('total_calories',[$request->query->get('min-calories')??0,$request->query->get('max-calories')??10000000000])->get($data), 200, $this->headers);
+            return response()->json(Meal::where("countrycode",$country)->whereBetween("total_calories",[$request->query->get("min-calories")?(double)$request->query->get("min-calories"):0,$request->query->get("max-calories")?(double)$request->query->get("max-calories"):10000000000])->get($data), 200, $this->headers);
         }
 
         return response()->json(Meal::where("countrycode",$country)->get($data), 200, $this->headers);
