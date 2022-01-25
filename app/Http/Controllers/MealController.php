@@ -44,17 +44,20 @@ class MealController extends Controller
 
 
     function findMealById(Request $request, $country, $id){
-        $data=["name","time","ingredients","steps"];
-        if($request->query->get('pictures')){
-            array_splice($data,1,0,"picture");
+        if(Meal::where("countrycode",$country)->where("_id",$id)->get()){
+            $data=["name","time","ingredients","steps"];
+            if($request->query->get('pictures')){
+                array_splice($data,1,0,"picture");
+            }
+            if($request->query->get('calories')){
+                array_push($data,"total_calories");
+            }
+    
+            if(count(Meal::where("countrycode",$country)->where("_id",$id)->get())){
+                return response()->json(Meal::where("countrycode",$country)->where("_id",$id)->get($data), 200, $this->headers);
+            }
         }
-        if($request->query->get('calories')){
-            array_push($data,"total_calories");
-        }
-
-        if(count(Meal::where("countrycode",$country)->where("_id",$id)->get())){
-            return response()->json(Meal::where("countrycode",$country)->where("_id",$id)->get($data), 200, $this->headers);
-        }
+        return response()->json(["message"=>"No such recipe with this id."], 404, $this->headers);
     }
 
 
