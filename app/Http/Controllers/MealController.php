@@ -83,6 +83,10 @@ class MealController extends Controller
     public function addMeal(Request $request){
         $this->validate($request, [
             "name"=>["required","max:20","string"],
+            "lname"=>["sometimes","max:20","string"],
+            "category"=>["sometimes","string","max:100"],
+            "time"=>["required","numeric","min:1","max:300"],
+
             // "picture"=>["required","mimes:png,jpg,gifjpeg","max:5000"],
             "filledingredients"=>["required"],
             // "cost"=>["sometimes","numeric"],
@@ -95,28 +99,38 @@ class MealController extends Controller
         $meal->name=$request->name;
         $meal->lname=$request->lname;
         if($request->category){
-            if($request->category=="null" && $request->newcategory){
-                $meal->category=$request->newcategory;
+            $meal->category=$request->category;
+        }
+        if($request->country_code){
+            if($request->country_code && $request->country_name){
+                $meal->country=$request->country_name;
+                $meal->countrycode=$request->country_code;
             }else{
-                $meal->category=$request->category;
+                $meal->countrycode=$request->country_code;
             }
         }
-        if($request->country){
-            if($request->country=="null" && $request->newcountry && $request->newcountrycode){
-                $meal->country=$request->newcountry;
-                $meal->countrycode=$request->newcountrycode;
-            }else{
-                $meal->countrycode=$request->country;
+        if($request->picture_url){
+            $meal->picture=$request->picture_url;
+        }elseif($request->picture){
+            $picname=$request->picture->getFilename();
+            file_put_contents(public_path('meals\\').$picname,file_get_contents($request->picture->getRealPath()));
+            $meal->picture=public_path('meals\\').$picname;
+        }
+        $meal->time=$request->time;
+        $filledingredientsraw=[];
+        $i=0;
+        foreach ($request->ingredients as $value) {
+            $ing=Ingredients::find($value["ingredient"]);
+            if(!$ing){
+                return response()->json(["message"=>"One or many ingredients don't exist."], 404);
             }
+            $filledingredientsraw[$i++]=[
+                "ingredient"=>$ing,
+                "quantity"=>$value["value"],
+                "unit"=>$value["unit"]
+            ];
         }
-        $picname=$request->picture->getFilename();
-        file_put_contents(public_path('meals\\').$picname,file_get_contents($request->picture->getRealPath()));
-        $meal->picture=public_path('meals\\').$picname;
-        if($request->time){
-            $meal->time=$request->time;
-        }
-        $meal->ingredients=$request->filledingredients;
-        $meal->ingredients_raw=$request->filledingredientsraw;
+        $meal->ingredients_raw=$filledingredientsraw;
         $meal->steps=$request->steps;
         $meal->lsteps=$request->lsteps;
         if($request->cost){
@@ -134,10 +148,13 @@ class MealController extends Controller
         $meal->total_calories=0;
         foreach ($request->filledingredientsraw as $value) {
             $tempunit=Unit::where("abbreviation",$value["ingredient"]["unit"])->get()[0]->equivalents;
-            $meal->total_calories+=(($value["ingredient"]["total_calories"]/100)/$tempunit[$value["unit"]])*$value["quantity"];
+            if($tempunit){
+                $meal->total_calories+=(($value["ingredient"]["total_calories"]/100)/$tempunit[$value["unit"]])*$value["quantity"];
+            }else{
+                response()->json(["message"=>"The unit specified is not supported."], 404);
+            }
         }
         $meal->save();
-
         return response()->json(["message"=>"Recipe created successfully."], 200);
     }
 
