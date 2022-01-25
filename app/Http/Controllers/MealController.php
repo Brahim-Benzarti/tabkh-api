@@ -142,7 +142,8 @@ class MealController extends Controller
     }
 
     public function deleteMeal(Request $request){
-        
+        $meal=Meal::find($request->query->get('meal_id'));
+        dd($meal);
     }
 
     public function updateMeal(){

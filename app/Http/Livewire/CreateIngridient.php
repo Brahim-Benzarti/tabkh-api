@@ -56,13 +56,15 @@ class CreateIngridient extends Component
         $ingredient->name=$this->name;
         $ingredient->lname=$this->lname;
         $ingredient->unit=$this->unit;
-        // dd($this->picture);
-        $picname=$this->picture->getFilename();
-        // dd($this->picture);
-        // dd(public_path("ok/"));
-        file_put_contents(public_path('ingredients\\').$picname,file_get_contents($this->picture->getRealPath()));
-        // Storage::disk('ingredients')->put($picname, file_get_contents($this->picture->getRealPath()));
-        $ingredient->picture=public_path('ingredients\\').$picname;
+        if($this->picture){
+            // dd($this->picture);
+            $picname=$this->picture->getFilename();
+            // dd($this->picture);
+            // dd(public_path("ok/"));
+            file_put_contents(public_path('ingredients\\').$picname,file_get_contents($this->picture->getRealPath()));
+            // Storage::disk('ingredients')->put($picname, file_get_contents($this->picture->getRealPath()));
+            $ingredient->picture=public_path('ingredients\\').$picname;
+        }
         $ingredient->price=(double)$this->price;
         $ingredient->fat=(double)$this->fat;
         $ingredient->protein=(double)$this->protein;
