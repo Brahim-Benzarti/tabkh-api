@@ -26,3 +26,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/create-recepy', [MealController::class, 'mealIndex'])->name('create-recipe-index');
     Route::get('/add-ingredient', [IngredientController::class, 'ingredientIndex'])->name('add-ingredient-index');
 });
+
+//API Documentation
+Route::get('/docs', function(){
+    return redirect('https://documenter.getpostman.com/view/17915773/UVXqFtRg');
+});

@@ -64,3 +64,8 @@ Route::prefix('{country}')->group(function () {
 });
 Route::get('/ingredients', [IngredientController::class, 'listIngredients'])->name('list-ingredients');
 Route::get('/ingredient/{name}', [IngredientController::class, 'findIngredients'])->name('find-ingredient');
+
+//API Documentation
+Route::get('/docs', function(){
+    return redirect('https://documenter.getpostman.com/view/17915773/UVXqFtRg');
+});
