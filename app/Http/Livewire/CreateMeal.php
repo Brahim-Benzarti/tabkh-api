@@ -65,7 +65,7 @@ class CreateMeal extends Component
 
     protected $rules=[
         "name"=>["required","max:20","string"],
-        "picture"=>["required","mimes:png,jpg,gifjpeg","max:5000"],
+        "picture"=>["mimes:png,jpg,gif,jpeg","max:5000"],
         "filledingredients"=>["required"],
         // "cost"=>["sometimes","numeric"],
         "steps"=>["required","string","min:10"],
