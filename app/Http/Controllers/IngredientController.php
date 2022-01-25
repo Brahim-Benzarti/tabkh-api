@@ -39,6 +39,24 @@ class IngredientController extends Controller
         return response()->json($data, 200, $this->headers);
     }
 
+    function findIngredientsById(Request $request,$id){
+        $fields=["name","price","unit","description"];
+        if($request->query->get('pictures')){
+            array_splice($fields,1,0,"picture");
+        }
+
+        if($request->query->get('nutrition')){
+            array_push($fields,"fat","protein","carbohydrates");
+        }
+
+        if($request->query->get('calories')){
+            array_push($fields,"total_calories");
+        }
+        if(count(Ingredient::where("_id",$id)->get())){
+            return response()->json(Ingredient::select($fields)->where('_id',$id)->get(), 200, $this->headers);
+        }
+    }
+
     function findIngredients(Request $request,$name){
         $fields=["name","price","unit","description"];
         if($request->query->get('pictures')){

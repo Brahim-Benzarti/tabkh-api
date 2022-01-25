@@ -61,9 +61,11 @@ Route::get('/categories', [MealController::class, 'listCategories']);
 Route::prefix('{country}')->group(function () {
     Route::get('/recipes', [MealController::class, 'listMeals'])->name('list-ingredients');
     Route::get('/recipe/{name}', [MealController::class, 'findMeal'])->name('find-ingredient');
+    Route::get('/recipe/{id}', [MealController::class, 'findMealById'])->name('find-ingredient-by-id');
 });
 Route::get('/ingredients', [IngredientController::class, 'listIngredients'])->name('list-ingredients');
 Route::get('/ingredient/{name}', [IngredientController::class, 'findIngredients'])->name('find-ingredient');
+Route::get('/ingredient/{id}', [IngredientController::class, 'findIngredientsById'])->name('find-ingredient-by-id');
 
 //API Documentation
 Route::get('/docs', function(){

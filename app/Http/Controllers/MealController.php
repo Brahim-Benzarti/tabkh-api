@@ -25,7 +25,7 @@ class MealController extends Controller
     }
 
     function listMeals(Request $request, $country){
-        $data=["name","time","ingredients","steps"];
+        $data=["name"];
         if($request->query->get('pictures')){
             array_splice($data,1,0,"picture");
         }
@@ -41,6 +41,22 @@ class MealController extends Controller
         }
         return response()->json(Meal::where("countrycode",$country)->get($data), 200, $this->headers);
     }
+
+
+    function findMealById(Request $request, $country, $id){
+        $data=["name","time","ingredients","steps"];
+        if($request->query->get('pictures')){
+            array_splice($data,1,0,"picture");
+        }
+        if($request->query->get('calories')){
+            array_push($data,"total_calories");
+        }
+
+        if(count(Meal::where("countrycode",$country)->where("_id",$id)->get())){
+            return response()->json(Meal::where("countrycode",$country)->where("_id",$id)->get($data), 200, $this->headers);
+        }
+    }
+
 
     function findMeal(Request $request, $country, $name){
         $data=["name","time","ingredients","steps"];
