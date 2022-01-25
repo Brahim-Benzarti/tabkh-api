@@ -48,14 +48,19 @@ Route::middleware(['auth:sanctum','ability:test'])->group(function(){
 Route::middleware(['auth:sanctum','ability:read'])->group(function(){
     Route::prefix('{country}')->group(function () {
         Route::get('/recipes-raw', [MealController::class, 'listMealsRaw']);
-        Route::get('/recipes', [MealController::class, 'listMeals'])->name('list-ingredients');
-        Route::get('/recipe/{name}', [MealController::class, 'findMeal'])->name('find-ingredient');
     });
-    Route::get('/countries', [MealController::class, 'listCountries']);
-    Route::get('/categories', [MealController::class, 'listCategories']);
-
     Route::get('/ingredients-raw', [IngredientController::class, 'listIngredientsRaw'])->name('list-ingredients');
-    Route::get('/ingredients', [IngredientController::class, 'listIngredients'])->name('list-ingredients');
-    Route::get('/ingredient/{name}', [IngredientController::class, 'findIngredients'])->name('find-ingredient');
-
 });
+
+
+
+// public apis 
+
+Route::get('/countries', [MealController::class, 'listCountries']);
+Route::get('/categories', [MealController::class, 'listCategories']);
+Route::prefix('{country}')->group(function () {
+    Route::get('/recipes', [MealController::class, 'listMeals'])->name('list-ingredients');
+    Route::get('/recipe/{name}', [MealController::class, 'findMeal'])->name('find-ingredient');
+});
+Route::get('/ingredients', [IngredientController::class, 'listIngredients'])->name('list-ingredients');
+Route::get('/ingredient/{name}', [IngredientController::class, 'findIngredients'])->name('find-ingredient');
