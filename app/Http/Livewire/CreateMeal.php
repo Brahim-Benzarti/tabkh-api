@@ -65,7 +65,7 @@ class CreateMeal extends Component
 
     protected $rules=[
         "name"=>["required","max:20","string"],
-        "picture"=>["required","mimes:png,jpg,gifjpeg","max:5000"],
+        // "picture"=>["sometimes","mimes:png,jpg,gif,jpeg","max:5000"],
         "filledingredients"=>["required"],
         // "cost"=>["sometimes","numeric"],
         "steps"=>["required","string","min:10"],
@@ -98,9 +98,11 @@ class CreateMeal extends Component
                 $meal->countrycode=$this->country;
             }
         }
-        $picname=$this->picture->getFilename();
-        file_put_contents(public_path('meals\\').$picname,file_get_contents($this->picture->getRealPath()));
-        $meal->picture=public_path('meals\\').$picname;
+        if($this->picture){
+            $picname=$this->picture->getFilename();
+            file_put_contents(public_path('meals\\').$picname,file_get_contents($this->picture->getRealPath()));
+            $meal->picture=public_path('meals\\').$picname;
+        }
         if($this->time){
             $meal->time=$this->time;
         }
