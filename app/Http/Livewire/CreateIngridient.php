@@ -29,7 +29,7 @@ class CreateIngridient extends Component
 
     protected $rules=[
         "name"=>'required|max:20|string',
-        "picture"=>"sometimes|mimes:png,jpg,gif,jpeg|max:5000",
+        //"picture"=>"sometimes|mimes:png,jpg,gif,jpeg|max:5000",
         "price"=>'required|numeric',
         "fat"=>"required|numeric",
         "protein"=>"required|numeric",
