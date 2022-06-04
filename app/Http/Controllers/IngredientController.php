@@ -88,7 +88,7 @@ class IngredientController extends Controller
         $this->validate($request,[
             "name"=>'required|max:20|string',
             "picture"=>"sometimes|mimes:png,jpg,gif,jpeg|max:5000",
-            "picture"=>"sometimes|active_url",
+            "picture_url"=>"sometimes|active_url",
             "price"=>'required|numeric',
             "fat"=>"required|numeric",
             "protein"=>"required|numeric",
