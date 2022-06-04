@@ -209,6 +209,7 @@ class MealController extends Controller
                         $this->validate($request, [
                             "name"=>["sometimes","max:20","string"],
                             // "picture"=>["required","mimes:png,jpg,gifjpeg","max:5000"],
+                            "picture"=>"sometimes|string",
                             // "filledingredients"=>["sometimes"],
                             "cost"=>["sometimes","numeric"],
                             "steps"=>["sometimes","string","min:10"],
@@ -228,6 +229,7 @@ class MealController extends Controller
                             $this->validate($request, [
                                 "name"=>["sometimes","max:20","string"],
                                 // "picture"=>["required","mimes:png,jpg,gifjpeg","max:5000"],
+                                "picture"=>"sometimes|string",
                                 // "filledingredients"=>["sometimes"],
                                 "cost"=>["sometimes","numeric"],
                                 "steps"=>["sometimes","string","min:10"],

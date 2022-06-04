@@ -88,7 +88,7 @@ class IngredientController extends Controller
         $this->validate($request,[
             "name"=>'required|max:20|string',
             "picture"=>"sometimes|mimes:png,jpg,gif,jpeg|max:5000",
-            "picture"=>"sometimes|active_url",
+            "picture_url"=>"sometimes|active_url",
             "price"=>'required|numeric',
             "fat"=>"required|numeric",
             "protein"=>"required|numeric",
@@ -155,6 +155,7 @@ class IngredientController extends Controller
                         $this->validate($request, [
                             "name"=>'sometimes|max:20|string',
                             // "picture"=>"sometimes|mimes:png,jpg,gif,jpeg|max:5000",
+                            "picture"=>"sometimes|string",
                             "price"=>'sometimes|numeric',
                             "fat"=>"sometimes|numeric",
                             "protein"=>"sometimes|numeric",
@@ -177,6 +178,7 @@ class IngredientController extends Controller
                             $this->validate($request, [
                                 "name"=>'sometimes|max:20|string',
                                 // "picture"=>"sometimes|mimes:png,jpg,gif,jpeg|max:5000",
+                                "picture"=>"sometimes|string",
                                 "price"=>'sometimes|numeric',
                                 "fat"=>"sometimes|numeric",
                                 "protein"=>"sometimes|numeric",
