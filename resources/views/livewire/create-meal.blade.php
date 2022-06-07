@@ -91,9 +91,15 @@
             <x-jet-input-error for="picture" class="mt-2" />
         </div> -->
         <div class="col-span-6 sm:col-span-4">
-            <x-jet-label for="picture" value="{{ __('Cooking picture (minutes)') }}" />
+            <x-jet-label for="picture" value="{{ __('Picture Url') }}" />
             <x-jet-input id="picture" type="text" step="1" class="mt-1 block w-full" wire:model.lazy="picture" autocomplete="picture" />
             <x-jet-input-error for="picture" class="mt-2" />
+        </div>
+
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="tutorials" value="{{ __('Youtube Id') }}" />
+            <x-jet-input id="tutorials" type="text" step="1" class="mt-1 block w-full" wire:model.lazy="tutorials" autocomplete="tutorials" />
+            <x-jet-input-error for="tutorials" class="mt-2" />
         </div>
 
         {{-- time --}}

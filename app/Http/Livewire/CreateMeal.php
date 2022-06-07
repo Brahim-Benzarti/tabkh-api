@@ -125,10 +125,11 @@ class CreateMeal extends Component
         if($this->ready){
             $meal->ready=$this->ready;
         }
-        // if($this->tutorials){
-        //     $meal->tutorials=$this->tutorials;
-        // }
-        $meal->tutorials="ytb-url";
+        if($this->tutorials){
+            $meal->tutorials=$this->tutorials;
+        }else{
+            $meal->tutorials="ytb-url";
+        }
         if($this->backstory){
             $meal->backstory=$this->backstory;
         }
