@@ -62,7 +62,7 @@ class MealController extends Controller
 
 
     function findMeal(Request $request, $country, $name){
-        $data=["name","time","ingredients","steps","tutorials"];
+        $data=["name","time","ingredients","steps","tutorials","latitude","longitude"];
         if($request->query->get('pictures')){
             array_splice($data,1,0,"picture");
         }
