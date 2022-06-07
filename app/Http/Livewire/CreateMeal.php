@@ -39,6 +39,9 @@ class CreateMeal extends Component
     public $newcountrycode;
     public $countries=[];
     public $country="null";
+    public $latitude=33.886917;
+    public $longitude=9.537499;
+
 
 
     // only for output
@@ -103,7 +106,12 @@ class CreateMeal extends Component
         //     file_put_contents(public_path('meals\\').$picname,file_get_contents($this->picture->getRealPath()));
         //     $meal->picture=public_path('meals\\').$picname;
         // }
-        $meal->picture="url-holder";
+
+        if(this->picture){
+            $meal->picture=this->picture;
+        }else{
+            $meal->picture="placeholder";
+        }
         if($this->time){
             $meal->time=$this->time;
         }
@@ -129,6 +137,8 @@ class CreateMeal extends Component
             $tempunit=Unit::where("abbreviation",$value["ingredient"]["unit"])->get()[0]->equivalents;
             $meal->total_calories+=(($value["ingredient"]["total_calories"]/100)/$tempunit[$value["unit"]])*$value["quantity"];
         }
+        $meal->latitude=(double)this->latitude;
+        $meal->longitude=(double)this->longitude;
         $meal->save();
         $this->emit('saved');
         // cleaning after insert

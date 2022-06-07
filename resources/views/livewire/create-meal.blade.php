@@ -58,7 +58,7 @@
 
         
         {{-- picture --}}
-        <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
+        <!-- <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
             <input type="file" class="hidden"
                         wire:model="picture"
                         x-ref="picture"
@@ -88,6 +88,11 @@
                 </x-jet-secondary-button>
             @endif
 
+            <x-jet-input-error for="picture" class="mt-2" />
+        </div> -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="picture" value="{{ __('Cooking picture (minutes)') }}" />
+            <x-jet-input id="picture" type="text" step="1" class="mt-1 block w-full" wire:model.lazy="picture" autocomplete="picture" />
             <x-jet-input-error for="picture" class="mt-2" />
         </div>
 
@@ -152,6 +157,15 @@
             <x-jet-label for="lsteps" value="{{ __('Local language steps') }}" />
             <textarea id="lsteps" type="text" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full h-30" wire:model.lazy="lsteps" autocomplete="lsteps"></textarea>
             <x-jet-input-error for="lsteps" class="mt-2" />
+        </div>
+
+
+        {{-- location --}}
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="" value="{{ __('Location') }}" />
+            <x-jet-input type="text" step="1" style="max-width:43%" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" wire:model.lazy="latitude" />
+            <x-jet-input type="text" step="1" style="max-width:23%" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" wire:model.lazy="longitude" />
+            <x-jet-input-error for="" class="mt-2" />
         </div>
 
 
