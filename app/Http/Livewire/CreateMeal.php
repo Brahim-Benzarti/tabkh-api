@@ -69,6 +69,7 @@ class CreateMeal extends Component
         "filledingredients"=>["required"],
         // "cost"=>["sometimes","numeric"],
         "steps"=>["required","string","min:10"],
+        "picture"=>["required","string"],
         // "backstory"=>["sometimes","string","max:500"],
     ];
 
@@ -83,13 +84,6 @@ class CreateMeal extends Component
         $meal->creatorId=Auth::user()->id;
         $meal->name=$this->name;
         $meal->lname=$this->lname;
-        if($this->category){
-            if($this->category=="null" && $this->newcategory){
-                $meal->category=$this->newcategory;
-            }else{
-                $meal->category=$this->category;
-            }
-        }
         if($this->country){
             if($this->country=="null" && $this->newcountry && $this->newcountrycode){
                 $meal->country=$this->newcountry;
@@ -103,7 +97,7 @@ class CreateMeal extends Component
         //     file_put_contents(public_path('meals\\').$picname,file_get_contents($this->picture->getRealPath()));
         //     $meal->picture=public_path('meals\\').$picname;
         // }
-        $meal->picture="url-holder";
+        $meal->picture=$this->picture;
         if($this->time){
             $meal->time=$this->time;
         }
@@ -129,6 +123,14 @@ class CreateMeal extends Component
             $tempunit=Unit::where("abbreviation",$value["ingredient"]["unit"])->get()[0]->equivalents;
             $meal->total_calories+=(($value["ingredient"]["total_calories"]/100)/$tempunit[$value["unit"]])*$value["quantity"];
         }
+
+        //heavy lifting for the ontology
+        
+
+
+        $meal->category="result from ontology";
+
+
         $meal->save();
         $this->emit('saved');
         // cleaning after insert

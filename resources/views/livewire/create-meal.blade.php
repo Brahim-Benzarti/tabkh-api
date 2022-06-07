@@ -41,7 +41,7 @@
         </div>
 
 
-        {{-- category --}}
+        <!-- {{-- category --}}
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="category" value="{{ __('Category') }}" />
             <select wire:model.lazy="category" style="max-width:50%" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
@@ -54,11 +54,12 @@
             <x-jet-input type="text" step="1" style="max-width:50%" id="category" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" wire:model.lazy="newcategory" autocomplete="category" />
             <x-jet-input-error for="category" class="mt-2" />
             @endif
-        </div>
+        </div> -->
 
         
         {{-- picture --}}
-        <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
+        <!-- The upload way -->
+        <!-- <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
             <input type="file" class="hidden"
                         wire:model="picture"
                         x-ref="picture"
@@ -89,7 +90,14 @@
             @endif
 
             <x-jet-input-error for="picture" class="mt-2" />
+        </div> -->
+        <!-- Easy way -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="picture" value="{{ __('Picture URL') }}" />
+            <x-jet-input id="picture" type="text" class="mt-1 block w-full" wire:model.lazy="picture" autocomplete="picture" />
+            <x-jet-input-error for="picture" class="mt-2" />
         </div>
+
 
         {{-- time --}}
         <div class="col-span-6 sm:col-span-4">
