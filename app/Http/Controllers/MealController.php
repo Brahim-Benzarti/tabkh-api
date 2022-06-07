@@ -79,7 +79,7 @@ class MealController extends Controller
         if(!($conf && $conf>0)){
            $conf=25;
         }
-        foreach (Meal::where("countrycode",$country)->get(["name"]) as $value) {
+        foreach (Meal::where("countrycode",$country)->get($data) as $value) {
             similar_text($value["name"],$name,$percent);
             if($percent>$conf){array_push($res,$value);}
         }
