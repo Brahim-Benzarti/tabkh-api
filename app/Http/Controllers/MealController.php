@@ -75,9 +75,13 @@ class MealController extends Controller
         }
 
         $res=[];
+        $conf=intval($request->query->get('confidence'));
+        if(!($conf && $conf>0)){
+           $conf=25;
+        }
         foreach (Meal::where("countrycode",$country)->get(["name"]) as $value) {
             similar_text($value["name"],$name,$percent);
-            if($percent>75){array_push($res,$value["name"]);}
+            if($percent>$conf){array_push($res,$value["name"]);}
         }
         return response()->json(["Message"=>"Nothing found!","Similar"=>$res], 200, $this->headers);
     }
