@@ -107,7 +107,7 @@ class CreateMeal extends Component
         //     $meal->picture=public_path('meals\\').$picname;
         // }
 
-        if(this->picture){
+        if($this->picture){
             $meal->picture=this->picture;
         }else{
             $meal->picture="placeholder";
