@@ -137,8 +137,8 @@ class CreateMeal extends Component
             $tempunit=Unit::where("abbreviation",$value["ingredient"]["unit"])->get()[0]->equivalents;
             $meal->total_calories+=(($value["ingredient"]["total_calories"]/100)/$tempunit[$value["unit"]])*$value["quantity"];
         }
-        $meal->latitude=(double)this->latitude;
-        $meal->longitude=(double)this->longitude;
+        $meal->latitude=(double)$this->latitude;
+        $meal->longitude=(double)$this->longitude;
         $meal->save();
         $this->emit('saved');
         // cleaning after insert
