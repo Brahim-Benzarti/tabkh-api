@@ -108,7 +108,7 @@ class CreateMeal extends Component
         // }
 
         if($this->picture){
-            $meal->picture=this->picture;
+            $meal->picture=$this->picture;
         }else{
             $meal->picture="placeholder";
         }
