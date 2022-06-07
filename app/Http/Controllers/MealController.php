@@ -81,7 +81,7 @@ class MealController extends Controller
         }
         foreach (Meal::where("countrycode",$country)->get(["name"]) as $value) {
             similar_text($value["name"],$name,$percent);
-            if($percent>$conf){array_push($res,$value["name"]);}
+            if($percent>$conf){array_push($res,Meal::where("countrycode",$country)->where("name",$name)->get($data));}
         }
         return response()->json(["Message"=>"Nothing found!","Similar"=>$res], 200, $this->headers);
     }
