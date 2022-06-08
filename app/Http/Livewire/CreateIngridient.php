@@ -26,6 +26,9 @@ class CreateIngridient extends Component
     public $units;
     public $facts;
     public $uses;
+    public $categories=[];
+    public $category="null";
+    public $newcategory;
 
     protected $rules=[
         "name"=>'required|max:20|string',
@@ -46,12 +49,25 @@ class CreateIngridient extends Component
     public function render()
     {
         $this->units=Unit::all();
+        $this->categories=[];
+        foreach (Ingredient::groupBy("category")->get(["category"]) as $value) {
+            if($value->category){
+                array_push($this->categories, $value->category);
+            }
+        }
         return view('livewire.create-ingridient');
     }
 
     public function addIngredient(){
         $this->validate($this->rules);
         $ingredient = new Ingredient();
+        if($this->category){
+            if($this->category=="null" && $this->newcategory){
+                $ingredient->category=$this->newcategory;
+            }else{
+                $ingredient->category=$this->category;
+            }
+        }
         $ingredient->creatorId=Auth::user()->id;
         $ingredient->name=$this->name;
         $ingredient->lname=$this->lname;

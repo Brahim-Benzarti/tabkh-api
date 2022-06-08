@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "760d1ca6fdd5b0098e1c43e29d5c0184",
+    "content-hash": "665dc6ae475d0e707457f088a9918707",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3672,6 +3672,57 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "sikic/laravel-envoy",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LukaSikic/laravel-envoy.git",
+                "reference": "a4a9ecd0b0002e2c2df0ec388ce7fa67bcb33102"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LukaSikic/laravel-envoy/zipball/a4a9ecd0b0002e2c2df0ec388ce7fa67bcb33102",
+                "reference": "a4a9ecd0b0002e2c2df0ec388ce7fa67bcb33102",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/process": "v5.*"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Luka\\Envoy\\EnvoyServiceProvider"
+                    ],
+                    "aliases": {
+                        "EnvoyWorker": "Luka\\Envoy\\Facades\\Worker"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Luka\\Envoy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luka",
+                    "email": "luka@sikic.eu"
+                }
+            ],
+            "description": "Run envoy tasks from your controller",
+            "support": {
+                "issues": "https://github.com/LukaSikic/laravel-envoy/issues",
+                "source": "https://github.com/LukaSikic/laravel-envoy/tree/master"
+            },
+            "time": "2020-08-15T11:57:26+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -8767,7 +8818,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "sikic/laravel-envoy": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

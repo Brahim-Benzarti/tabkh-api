@@ -10,6 +10,7 @@ use Auth;
 use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Luka\Envoy\Facades\Worker;
 
 class CreateMeal extends Component
 {
@@ -78,6 +79,12 @@ class CreateMeal extends Component
     }
 
     public function addMeal(){
+        $this->emit('Generating ontology');
+
+        $this->emit('Running Reasoner');
+        dd(Worker::task('reasoning')->arguments(["rawOntology"=>"dbara.owl"])->run());
+        $this->emit('Querying Inferred ontology');
+
         $this->validate($this->rules);
 
         $meal = new Meal();
@@ -125,8 +132,6 @@ class CreateMeal extends Component
         }
 
         //heavy lifting for the ontology
-        
-
 
         $meal->category="result from ontology";
 

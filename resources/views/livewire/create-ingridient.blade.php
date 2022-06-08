@@ -9,6 +9,21 @@
 
     <x-slot name="form">
 
+        {{-- category --}}
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="category" value="{{ __('Category') }}" />
+            <select wire:model.lazy="category" style="max-width:50%" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                <option value="null" selected>New</option>
+                @foreach ($categories as $item)
+                    <option  value="{{$item}}">{{$item}}</option>
+                @endforeach
+            </select>
+            @if($category=="null")
+            <x-jet-input type="text" step="1" style="max-width:50%" id="category" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" wire:model.lazy="newcategory" autocomplete="category" />
+            <x-jet-input-error for="category" class="mt-2" />
+            @endif
+        </div>
+
         {{-- name --}}
         <div class="col-span-6 sm:col-span-4">
             <x-jet-label for="name" value="{{ __('Ingredient Name') }}" />
