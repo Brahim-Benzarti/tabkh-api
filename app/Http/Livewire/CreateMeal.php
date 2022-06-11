@@ -135,19 +135,63 @@ class CreateMeal extends Component
                 $ingredients=$ingredients.",";
             }
         }
+
+        //generating insert query because the cli was crazy about it
+        $myfile = fopen("insert_query.rq", "w") or die("Unable to open file!");
+        $prefix="PREFIX : <http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#> PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX xml: <http://www.w3.org/XML/1998/namespace> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> BASE <http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#> ";
+        fwrite($myfile, $prefix);
+        fwrite($myfile, "INSERT DATA { :".$this->name." rdf:type owl:Class ; rdfs:subClassOf :NamedRecipe , ");
+        for ($i = 0; $i < count(explode(",",$ingredients)); $i++){
+            fwrite($myfile, "[ rdf:type owl:Restriction ; owl:onProperty :hasIngredient ; owl:someValuesFrom :".explode(",",$ingredients)[$i]." ] , ");
+            if($i==(count(explode(",",$ingredients))-1)){
+                $union="(";
+                foreach (explode(",",$ingredients) as $ingredientClass){
+                    $union=$union." :".$ingredientClass." ";
+                }
+                $union=$union.")";
+                fwrite($myfile,"[ rdf:type owl:Restriction ; owl:onProperty :hasIngredient ; owl:allValuesFrom [ rdf:type owl:Class ; owl:unionOf ".$union."]] .}");
+            }        
+        }
+        fclose($myfile);
+
         //heavy lifting for the ontology
-        $res=Worker::task('handleRecipeCreation')->arguments([
-            "recipeName"=>$this->name,
-            "ingredientClasses"=>$ingredients
-            ])->run();
+        $res=Worker::task('handleRecipeCreation')->arguments([""])->run();
+        if($res!=""){
+            dd($res);
+        }
+
+        $inferredcategory=[];
+        $myfile = fopen("inferred_categories.csv", "r") or die("Unable to open file!");
+        $atheader=true;
+        while(!feof($myfile)) {
+            if(!$atheader){
+                array_push($inferredcategory,fgetcsv($myfile));
+                // array_push($inferredcategory,explode(",",fgets($myfile))[1])
+            }else{fgets($myfile);}
+            $atheader=false;
+        }
+        fclose($myfile);
+
+        $inferredcategories="";
+        if (count($inferredcategory) >2) {
+            for ($i=0; $i < count($inferredcategory)-2; $i++) { 
+                $inferredcategories=$inferredcategories.str_replace("Recipe"," Recipe",explode("#",$inferredcategory[$i][1])[1]);
+                if($i<(count($inferredcategory)-3)){
+                    $inferredcategories=$inferredcategories.",";
+                }
+            }
+        }
         
-        dd($res);
-
-        $meal->category="result from ontology";
-
-
+        if($inferredcategories!=""){
+            $meal->category=$inferredcategories;
+        }
+        
         $meal->save();
-        $this->emit('saved');
+        if($inferredcategories!=""){
+            $this->emit('inferred');
+        }else{
+            $this->emit('saved');
+        }
         // cleaning after insert
         $this->name=null;
         $this->picture=null;

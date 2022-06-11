@@ -36,12 +36,6 @@ Serving as a gate way to know, learn and most importantly taste the history of t
     
 
 
-    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#hasTopping -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#hasTopping"/>
-    
-
-
     <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#isIngredient -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#isIngredient">
@@ -58,6 +52,46 @@ Serving as a gate way to know, learn and most importantly taste the history of t
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AfterEmit -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AfterEmit">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#NamedRecipe"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#hasIngredient"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FruitIngredient"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#hasIngredient"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SourFruitIngredient"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#hasIngredient"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#VegetableIngredient"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#hasIngredient"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FruitIngredient"/>
+                            <rdf:Description rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SourFruitIngredient"/>
+                            <rdf:Description rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#VegetableIngredient"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
     
 
 
@@ -107,27 +141,6 @@ Serving as a gate way to know, learn and most importantly taste the history of t
 
     <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#DairyIngredient">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AnimalIngredient"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FromApi -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FromApi">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#NamedRecipe"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#hasTopping"/>
-                <owl:allValuesFrom>
-                    <owl:Class>
-                        <owl:unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FruitIngredient"/>
-                            <rdf:Description rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#MeatIngredient"/>
-                        </owl:unionOf>
-                    </owl:Class>
-                </owl:allValuesFrom>
-            </owl:Restriction>
-        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -268,20 +281,6 @@ Serving as a gate way to know, learn and most importantly taste the history of t
 
     <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SweetFruitIngredient">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FruitIngredient"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#TestRecipe -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#TestRecipe">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#NamedRecipe"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#hasIngredient"/>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#PepperIngredient"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
     </owl:Class>
     
 

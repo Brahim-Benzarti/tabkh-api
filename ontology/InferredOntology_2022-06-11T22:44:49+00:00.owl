@@ -24,6 +24,15 @@ Serving as a gate way to know, learn and most importantly taste the history of t
     
 
 
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AfterEmit -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AfterEmit">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#NamedRecipe"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#VegetarianRecipe"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AnimalIngredient -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AnimalIngredient">
@@ -172,15 +181,6 @@ Serving as a gate way to know, learn and most importantly taste the history of t
 
     <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SweetFruitIngredient">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FruitIngredient"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#TestRecipe -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#TestRecipe">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#NamedRecipe"/>
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SpicyRecipe"/>
     </owl:Class>
     
 

@@ -1,0 +1,2 @@
+nm,subject
+http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FromApi,http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#NamedRecipe

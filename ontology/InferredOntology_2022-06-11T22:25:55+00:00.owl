@@ -24,30 +24,6 @@ Serving as a gate way to know, learn and most importantly taste the history of t
     
 
 
-    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraFromApi -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraFromApi">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraNamedRecipe"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraNamedRecipe -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraNamedRecipe">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraVegetableIngredient -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraVegetableIngredient">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
-    </owl:Class>
-    
-
-
     <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AnimalIngredient -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AnimalIngredient">
@@ -84,6 +60,15 @@ Serving as a gate way to know, learn and most importantly taste the history of t
 
     <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#DairyIngredient">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AnimalIngredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FromApi -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FromApi">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#NamedRecipe"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#VegetarianRecipe"/>
     </owl:Class>
     
 
@@ -196,15 +181,6 @@ Serving as a gate way to know, learn and most importantly taste the history of t
 
     <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SweetFruitIngredient">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FruitIngredient"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#TestRecipe -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#TestRecipe">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#NamedRecipe"/>
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SpicyRecipe"/>
     </owl:Class>
     
 

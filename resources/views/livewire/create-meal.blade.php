@@ -170,8 +170,28 @@
             {{ __('Saved.') }}
         </x-jet-action-message>
 
+        <x-jet-action-message class="mr-3" on="inferred">
+            {{ __('Data inferred from Onotlogy and Saved.') }}
+        </x-jet-action-message>
+
         <x-jet-action-message class="mr-3" on="error">
             {{ __('Something went wrong.') }}
+        </x-jet-action-message>
+
+        <x-jet-action-message class="mr-3" on="sparql">
+            {{ __('Generating SPARQL query, and updating ontology.') }}
+        </x-jet-action-message>
+
+        <x-jet-action-message class="mr-3" on="Esparql">
+            {{ __('Updating Ontology with SPARQL query.') }}
+        </x-jet-action-message>
+
+        <x-jet-action-message class="mr-3" on="reasoning">
+            {{ __('Running reasoner "HermT".') }}
+        </x-jet-action-message>
+
+        <x-jet-action-message class="mr-3" on="fetching">
+            {{ __('Fetching inferred data.') }}
         </x-jet-action-message>
 
         <x-jet-button>
