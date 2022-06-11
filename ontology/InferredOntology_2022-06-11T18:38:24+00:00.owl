@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#"
+     xml:base="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara">
+        <rdfs:comment>Dbara is an API aimed to provide recipes of local &amp; traditional meals for different countries to help preserve their culture, traditions and identity.
+Serving as a gate way to know, learn and most importantly taste the history of these places and appreciate their geographic location that is reflected by their food. While keeping it healthy and enriching with nutrition facts and background stories.</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraFromApi -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraFromApi">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraNamedRecipe"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraNamedRecipe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraNamedRecipe">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraVegetableIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbaraVegetableIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AnimalIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AnimalIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Ingredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#BeanIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#BeanIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#PlantIngredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#CheeseIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#CheeseIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#DairyIngredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#CheeseRecipe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#CheeseRecipe">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Recipe"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#DairyIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#DairyIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AnimalIngredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FruitIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FruitIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#PlantIngredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Ingredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Ingredient">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#KetoRecipe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#KetoRecipe">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Recipe"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#MeatIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#MeatIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AnimalIngredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#NamedRecipe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#NamedRecipe">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Recipe"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#OilyRecipe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#OilyRecipe">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Recipe"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#PepperIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#PepperIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#VegetableIngredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#PlantIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#PlantIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Ingredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Recipe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Recipe">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SeafoodIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SeafoodIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#AnimalIngredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SourFruitIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SourFruitIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FruitIngredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SpiceIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SpiceIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Ingredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SpicyRecipe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SpicyRecipe">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Recipe"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SweetFruitIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SweetFruitIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#FruitIngredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#TestRecipe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#TestRecipe">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#NamedRecipe"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#SpicyRecipe"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#VegetableIngredient -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#VegetableIngredient">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#PlantIngredient"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#VegetarianRecipe -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#VegetarianRecipe">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/banzo/ontologies/2022/5/dbara#Recipe"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.6) https://github.com/owlcs/owlapi -->
+

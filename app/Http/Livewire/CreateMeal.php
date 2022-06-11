@@ -79,14 +79,7 @@ class CreateMeal extends Component
     }
 
     public function addMeal(){
-        $this->emit('Generating ontology');
-
-        $this->emit('Running Reasoner');
-        dd(Worker::task('reasoning')->arguments(["rawOntology"=>"dbara.owl"])->run());
-        $this->emit('Querying Inferred ontology');
-
         $this->validate($this->rules);
-
         $meal = new Meal();
         $meal->creatorId=Auth::user()->id;
         $meal->name=$this->name;
@@ -131,7 +124,24 @@ class CreateMeal extends Component
             $meal->total_calories+=(($value["ingredient"]["total_calories"]/100)/$tempunit[$value["unit"]])*$value["quantity"];
         }
 
+        //Inferring the category from onthology
+
+        //Retrieving the types of each recipe selected
+        $ingredients="";
+        for ($i=0; $i < count($this->filledingredientsraw); $i++) { 
+            $formattedingredientname=implode(array_reverse(explode(" ",$this->filledingredientsraw[$i]["ingredient"]["category"])));
+            $ingredients=$ingredients.$formattedingredientname."Ingredient";
+            if ($i < (count($this->filledingredientsraw)-1)) {
+                $ingredients=$ingredients.",";
+            }
+        }
         //heavy lifting for the ontology
+        $res=Worker::task('handleRecipeCreation')->arguments([
+            "recipeName"=>$this->name,
+            "ingredientClasses"=>$ingredients
+            ])->run();
+        
+        dd($res);
 
         $meal->category="result from ontology";
 

@@ -6,20 +6,16 @@
 
 <?php
     $now = new DateTime;
-    $inferredOntology="InferredOntology".date(DateTimeInterface::W3C,$now->getTimestamp() );
+    $inferredOntology="InferredOntology_".date(DateTimeInterface::W3C,$now->getTimestamp()).".owl";
 ?>
 
-<?php $_vars = get_defined_vars(); $__container->before(function($task) use ($_vars) { extract($_vars, EXTR_SKIP)  ; 
-    export PATH=$PATH:/usr/local/bin/jre1.8.0_333/bin
-}); ?>
+<?php $__container->startTask('updateRawOntology' ['on'=>'localhost']); ?>
+    
+<?php $__container->endTask(); ?>
 
 <?php $__container->startTask('reasoning', ['on'=>"localhost"]); ?>
-    pwd
-    whoami
-    echo <?php echo $now->getTimestamp(); ?>
-
-    echo $PATH
-    robot reason -h true -i <?php echo $rawOntology; ?> -r HermiT -o <?php echo $inferredOntology; ?>
+    export PATH=$PATH:/usr/local/bin/jre1.8.0_333/bin
+    robot reason -i ontology/<?php echo $rawOntology; ?> -r HermiT -n true -o ontology/<?php echo $inferredOntology; ?>
 
 <?php $__container->endTask(); ?>
  
